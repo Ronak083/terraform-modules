@@ -1,13 +1,18 @@
-# variable "public-subnet-id" {
-#   description = "The ID of the public subnet"
-#   type        = list(string)
-# }
+variable "public-subnet-id" {
+  description = "The ID of the public subnet"
+  type        = string
+}
 
-# variable "private-subnet-id" {
-#   description = "The ID of the private subnet"
-#   type        = list(string)
-# }
-# 
+variable "private-subnet-id" {
+  description = "The ID of the private subnet"
+  type        = string
+}
+
+variable "vpc-id" {
+  description = "The ID of the VPC"
+  type        = string
+}
+
 variable "cidr_block" {
   description = "The CIDR block of the VPC"
   type        = string
