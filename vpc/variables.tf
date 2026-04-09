@@ -49,3 +49,9 @@ variable "enable_vpn_gateway" {
   type        = bool
   default     = false
 }
+
+variable "subnet_count" {
+  type        = number
+  description = "Subnet count in each Group"
+  default     = 1
+}
