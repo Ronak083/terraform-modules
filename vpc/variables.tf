@@ -55,3 +55,21 @@ variable "subnet_count" {
   description = "Subnet count in each Group"
   default     = 1
 }
+
+variable "enable_db_subnet_group" {
+  description = "Enable DB subnet group"
+  type        = bool
+  default     = false
+}
+
+variable "enable_internet_gateway" {
+  description = "Enable Internet Gateway"
+  type        = bool
+  default     = false
+}
+
+variable "enable_nat_gateway" {
+  description = "Enable NAT Gateway"
+  type        = bool
+  default     = false
+}
