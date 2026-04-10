@@ -67,9 +67,3 @@ variable "enable_internet_gateway" {
   type        = bool
   default     = false
 }
-
-variable "enable_nat_gateway" {
-  description = "Enable NAT Gateway"
-  type        = bool
-  default     = false
-}
