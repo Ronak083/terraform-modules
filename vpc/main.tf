@@ -1,5 +1,7 @@
 resource "aws_vpc" "vpc" {
-  cidr_block = var.cidr_block
+  cidr_block           = var.cidr_block
+  enable_dns_support   = true
+  enable_dns_hostnames = true
   tags = {
     Name = var.name
   }
@@ -28,7 +30,7 @@ resource "aws_subnet" "private_subnet" {
 resource "aws_db_subnet_group" "db_subnet_group" {
   count       = var.enable_db_subnet_group ? 1 : 0
   name        = "${var.name}-db-subnet-group"
-  subnet_ids  = aws_subnet.private_subnet[*].id
+  subnet_ids  = aws_subnet.public_subnet[*].id
   description = "DB subnet group for ${var.name}"
 }
 
@@ -57,4 +59,24 @@ resource "aws_nat_gateway" "nat_gateway" {
 
 resource "aws_eip" "nat_gateway_eip" {
   count = var.enable_nat_gateway ? 1 : 0
+}
+
+resource "aws_route_table" "public_rt" {
+  count  = var.enable_internet_gateway ? 1 : 0
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.internet_gateway[0].id
+  }
+
+  tags = {
+    Name = "${var.name}-public-rt"
+  }
+}
+
+resource "aws_route_table_association" "public_rt_assoc" {
+  count          = var.enable_internet_gateway ? var.subnet_count : 0
+  subnet_id      = aws_subnet.public_subnet[count.index].id
+  route_table_id = aws_route_table.public_rt[0].id
 }
