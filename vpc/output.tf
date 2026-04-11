@@ -14,6 +14,10 @@ output "db-subnet-group-id" {
   value = try(aws_db_subnet_group.db_subnet_group[0].id, "")
 }
 
+output "db-security-group-id" {
+  value = try(aws_security_group.db_security_group[0].id, "")
+}
+
 output "internet-gateway-id" {
   value = try(aws_internet_gateway.internet_gateway[0].id, "")
 }

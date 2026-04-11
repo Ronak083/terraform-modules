@@ -32,6 +32,13 @@ resource "aws_db_subnet_group" "db_subnet_group" {
   description = "DB subnet group for ${var.name}"
 }
 
+resource "aws_security_group" "db_security_group" {
+  count       = var.enable_db_subnet_group ? 1 : 0
+  name        = "${var.name}-db-security-group"
+  description = "DB security group for ${var.name}"
+  vpc_id      = aws_vpc.vpc.id
+}
+
 resource "aws_internet_gateway" "internet_gateway" {
   count  = var.enable_internet_gateway ? 1 : 0
   vpc_id = aws_vpc.vpc.id

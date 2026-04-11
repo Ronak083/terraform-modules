@@ -67,3 +67,27 @@ variable "enable_internet_gateway" {
   type        = bool
   default     = false
 }
+
+variable "db_ingress_cidr" {
+  description = "The CIDR block of the DB security group"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "db_ingress_port" {
+  description = "The port of the DB security group"
+  type        = number
+  default     = 3306
+}
+
+variable "db_egress_cidr" {
+  description = "The CIDR block of the DB security group"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+}
+
+variable "db_egress_port" {
+  description = "The port of the DB security group"
+  type        = number
+  default     = 3306
+}
